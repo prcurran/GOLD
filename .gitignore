@@ -1,9 +1,10 @@
 # no test data
-./akt1/
-./akt1/*
+akt1/
+
 # no nohup logs
 logs/
 *.err
 *.out
 #
 .idea/
+/akt1/
