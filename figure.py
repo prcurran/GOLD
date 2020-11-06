@@ -48,13 +48,11 @@ def roc_plot(df, ax, title="plot", hue="scheme", hue_order=["plp", "hotspot"], p
     # random
     sns.lineplot(x=[0, 1], y=[0, 1], color="grey", ax=ax)
 
-    # docking rank
-    vals = set(df[hue])
     # style lines
     d = {val: {"color": sns.color_palette(palette)[i], "linestyle": "-"} for i, val in enumerate(hue_order)}
     print(d)
     # group data (hue)
-    lines = [ax.plot(grp.fpr, grp.tpr, label=n, **d[n])[0] for n, grp in df.groupby(hue)]
+    lines = {n: ax.plot(grp.fpr, grp.tpr, label=n, **d[n])[0] for n, grp in df.groupby(hue)}
 
     ax.set_ylabel("")
     ax.set_xlabel("")
@@ -93,8 +91,8 @@ def _asthetics(fig, axs, lines):
     yticks = [-1, 0, 1, 2]
 
     # format legend
-    fig.legend(lines,
-               [f"{w}" for w in ['plp', 'hotspot']],
+    fig.legend(lines.values(),
+               [f"{w}" for w in lines.keys()],
                (.83, .42),
                title="Scoring Scheme")
     # format canvas
@@ -105,6 +103,7 @@ if __name__ == "__main__":
 
     base = "/local/pcurran/diverse"
     targets = ['akt1', 'ampc', 'cp3a4', 'cxcr4', 'gcr', 'hivpr', 'hivrt', 'kif11']
+    r = "vanilla_scale_10"
     # Plot the ROC and box plots
     sns.set_style('white')
     rows = 4
@@ -115,8 +114,8 @@ if __name__ == "__main__":
         for j in range(cols):
             n = (cols * i) + j
             t = targets[n]
-            vanilla = f"/local/pcurran/diverse/{t}/gold_results/vanilla/bestranking.lst"
-            rescored = f"/local/pcurran/diverse/{t}/gold_results/vanilla/rescored.csv"
+            vanilla = f"/local/pcurran/diverse/{t}/gold_results/{r}/bestranking.lst"
+            rescored = f"/local/pcurran/diverse/{t}/gold_results/{r}/rescored.csv"
 
             if os.path.exists(vanilla) and os.path.exists(rescored):
                 df1 = reformat_results(vanilla)
@@ -134,9 +133,7 @@ if __name__ == "__main__":
 
                 df = pd.concat([df1, df2])
 
-                print(df)
-
-                lines = roc_plot(df=df, ax=axs[i][j], hue="score_func", title=t)
+                lines = roc_plot(df=df, ax=axs[i][j], hue="score_func", hue_order=["plp", "hotspot"], title=t)
 
     _asthetics(fig, axs, lines)
     plt.show()

@@ -71,7 +71,11 @@ def dock(inputs):
         # write ligands
         with MoleculeWriter(os.path.join(out_path, "docked_ligand.mol2")) as w:
             for d in results.ligands:
-                w.write(d.molecule)
+                mol = d.molecule
+                # for atm in mol.atoms:
+                #     if atm.atomic_symbol == "Unknown":
+                #         mol.remove_atom(atm)
+                w.write(mol)
 
         # copy ranking file
         # in this example, this is the only file we use for analysis. However, other output files can be useful.
@@ -98,8 +102,8 @@ def dock(inputs):
         # change if your hotspot is call something else
         hotspot = [h for h in reader.read() if h.identifier == "bestvol"][0]
 
-    for p, g in hotspot.super_grids.items():
-        hotspot.super_grids[p] = g.dilate_by_atom()  # dilation to reduce noise
+    # for p, g in hotspot.super_grids.items():
+    #     hotspot.super_grids[p] = g.dilate_by_atom()  # dilation to reduce noise
 
     add_ligands(docker, ligand_path)
     add_protein(docker, hotspot, junk)
@@ -122,13 +126,15 @@ def run():
 
     # must be abspath
     parent = sys.argv[1]
+    weight = sys.argv[2]
+    search_efficiency = sys.argv[3]
+    run_id = sys.argv[4]
+
     ligand_path = parent
     out_path = check_dir(os.path.join(parent, "gold_results"))
-    out_path = check_dir(os.path.join(out_path, "vanilla"))
+    out_path = check_dir(os.path.join(out_path, run_id))
 
     hotspot = os.path.join(parent, "hotspot_pharmacophore", "out.zip")
-    weight = 0
-    search_efficiency = 100
 
     inputs = (ligand_path, out_path, hotspot, weight, search_efficiency)
     dock(inputs)

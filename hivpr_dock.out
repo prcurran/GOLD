@@ -2,5 +2,15 @@ Setting up GOLD environment...
 GOLD Version 2020.1
 Running:
  
-     "/local/pcurran/CCDC/Discovery_2020/GOLD/gold/d_linux_64/bin/gold_linux_64" "/local/pcurran/diverse/hivpr/gold_results/vanilla/hs_gold.conf"
-
+     "/local/pcurran/CCDC/Discovery_2020/GOLD/gold/d_linux_64/bin/gold_linux_64" "/local/pcurran/diverse/hivpr/gold_results/hotspot_50_scale_10/hs_gold.conf/lo/local/pcurran/diverse/hivpr/gold_results/hotspot_50_scale_10/all/protein.mol2
+[[21.742 -8.415 11.13 ]
+ [20.433 -8.184  9.991]]
+[[19.896  0.435 12.475]]
+[[21.058  5.656 21.641]
+ [20.226  5.157 20.186]]
+[[17.657 -5.325 10.3  ]]
+[[17.385 -9.94  16.787]]
+OrderedDict([(1162, 13.78600025177002)])
+13.78600025177002
+1162
+Starting GOLD with conf file /local/pcurran/diverse/hivpr/gold_results/hotspot_50_scale_10/hs_gold.conf
