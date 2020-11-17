@@ -59,7 +59,8 @@ def run():
 
     # process results
     docked = MoleculeReader(os.path.join(junk, "docked_ligands.mol2"))
-    with MoleculeWriter(os.path.join(out_path, "docked_ligands.mol2")) as w:
+    # make it consistent with other names
+    with MoleculeWriter(os.path.join(out_path, "docked_ligand.mol2")) as w:
         for d in docked:
             for atm in d.atoms:
                 if atm.atomic_symbol == "Unknown":
@@ -68,7 +69,7 @@ def run():
 
     shutil.copyfile(os.path.join(junk, "bestranking.lst"), os.path.join(out_path, "bestranking.lst"))
 
-    shutil.rmtree(junk)
+    #shutil.rmtree(junk)
 
 
 if __name__ == "__main__":

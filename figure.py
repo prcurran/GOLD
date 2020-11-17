@@ -99,8 +99,7 @@ def _asthetics(fig, axs, lines):
     plt.subplots_adjust(left=0.1, right=0.8, top=0.86)
 
 
-if __name__ == "__main__":
-
+def main_all():
     base = "/local/pcurran/diverse"
     targets = ['akt1', 'ampc', 'cp3a4', 'cxcr4', 'gcr', 'hivpr', 'hivrt', 'kif11']
     r = "vanilla_scale_10"
@@ -137,4 +136,32 @@ if __name__ == "__main__":
 
     _asthetics(fig, axs, lines)
     plt.show()
+
+
+def main_single():
+    base = "junk/"
+    df1 = pd.read_csv(os.path.join(base, "df1.csv"))
+    df1 = roc_data(df1)
+    df2 = pd.read_csv(os.path.join(base, "df2.csv"))
+    df2 = roc_data(df2)
+
+    df = pd.concat([df1, df2])
+
+    fig, ax = plt.subplots()
+
+    lines = roc_plot(df, ax, hue="scheme", hue_order=["hs1", "hs2"])
+
+    # format legend
+    fig.legend(lines.values(),
+               [f"{w}" for w in lines.keys()],
+               (.83, .42),
+               title="Scoring Scheme")
+    # format canvas
+    plt.subplots_adjust(left=0.1, right=0.8, top=0.86)
+
+    plt.show()
+
+if __name__ == "__main__":
+    # main_all()
+    main_single()
 

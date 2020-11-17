@@ -73,7 +73,7 @@ output_file_format = MOL2
   FITNESS FUNCTION SETTINGS
 initial_virtual_pt_match_max = 3
 relative_ligand_energy = 1
-gold_fitfunc_path = plp
+gold_fitfunc_path = goldscore
 score_param_file = DEFAULT
 
   PROTEIN DATA

@@ -1,8 +1,8 @@
 #!/bin/bash
 conda activate hotspots
 
-#'akt1'
-for target in 'ampc' 'cp3a4' 'cxcr4' 'gcr' 'hivrt' 'hivpr' 'kif11'
+#'ampc' 'cp3a4' 'cxcr4' 'gcr' 'hivpr' 'kif11'
+for target in 'akt1' 'hivrt'
 do
   for run in 'vanilla_scale_10'
   do
